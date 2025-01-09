@@ -1,0 +1,19 @@
+{
+  "name": "api-commons",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api-commons/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api-commons",
+        "main": "libs/api-commons/src/index.ts",
+        "tsConfig": "libs/api-commons/tsconfig.lib.json",
+        "assets": ["libs/api-commons/*.md"]
+      }
+    }
+  }
+}

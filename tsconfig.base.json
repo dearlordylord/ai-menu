@@ -1,6 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -14,7 +16,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ai-menu/api-commons": ["libs/api-commons/src/index.ts"],
+      "@ai-menu/utils": ["libs/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
