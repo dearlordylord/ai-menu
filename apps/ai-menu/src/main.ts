@@ -10,17 +10,17 @@ const server = Fastify({
   logger: true,
 });
 
-const allowedOrigins = [...(process.env.ALLOWED_ORIGINS?.split(',') ?? []), 'localhost'];
+const allowedOrigins = new Set([...(process.env.ALLOWED_ORIGINS?.split(',') ?? []), 'localhost']);
 
 server.register(cors, {
   origin: (origin, cb) => {
     if (!origin) return cb(null, true);
-    const hostname = new URL(origin).hostname
-    if (allowedOrigins.includes(hostname)) {
+    const hostname = new URL(origin).hostname;
+    if (allowedOrigins.has(hostname)) {
       cb(null, true)
-      return
+      return;
     }
-    cb(new Error('Origin Not allowed'), false)
+    cb(new Error('Origin Not allowed'), false);
   }
 });
 
