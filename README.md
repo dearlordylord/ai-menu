@@ -12,3 +12,7 @@ UI dev:
 backend dev:
 
 `npx dotenv -e ./apps/ai-menu/.env npx nx serve ai-menu`
+
+for vercel: 
+
+`npx nx build ai-menu-widget-ui`
