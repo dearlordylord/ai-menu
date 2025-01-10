@@ -10,11 +10,13 @@ const server = Fastify({
   logger: true,
 });
 
+const allowedOrigins = [...(process.env.ALLOWED_ORIGINS?.split(',') ?? []), 'localhost'];
+
 server.register(cors, {
   origin: (origin, cb) => {
-    if (!origin) return cb(new Error("Missing origin"), false);
+    if (!origin) return cb(null, true);
     const hostname = new URL(origin).hostname
-    if (hostname === 'localhost') {
+    if (allowedOrigins.includes(hostname)) {
       cb(null, true)
       return
     }

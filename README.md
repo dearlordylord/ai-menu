@@ -13,6 +13,17 @@ backend dev:
 
 `npx dotenv -e ./apps/ai-menu/.env npx nx serve ai-menu`
 
-for vercel: 
+for vercel (frontend): 
 
-`npx nx build ai-menu-widget-ui`
+`npx dotenv -e ./apps/ai-menu-widget-ui/.env npx nx build ai-menu-widget-ui`
+
+NB! UI envs are baked into the build
+
+
+for DO deploy:
+
+`npx nx docker-build ai-menu`
+`docker tag ai-menu:latest registry.digitalocean.com/monadical-sas/ai-menu:latest`
+`docker push registry.digitalocean.com/monadical-sas/ai-menu:latest`
+
+for loskutoff.com dokku: `dokku git:from-image monadical-ai-menu registry.digitalocean.com/monadical-sas/ai-menu:latest`
