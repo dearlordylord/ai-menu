@@ -3,6 +3,8 @@ import { Either } from 'fp-ts/lib/Either';
 import { pipe } from 'fp-ts/lib/function';
 import * as TE from 'fp-ts/lib/TaskEither';
 import { TaskEither } from 'fp-ts/lib/TaskEither';
+import { Schema as S } from 'effect';
+import { NonEmptyString } from 'effect/Schema';
 
 export const assertNonEmptyOrNA = <S extends string | undefined | null>(
   s: S,
@@ -80,3 +82,19 @@ export const hashCode = (s: string): number => {
   }
   return hash;
 };
+
+export const NonNegativeInteger = S.Number.pipe(S.nonNegative(), S.int());
+export type NonNegativeInteger = S.Schema.Type<typeof NonNegativeInteger>;
+const PORT_MAX = 65535 as NonNegativeInteger;
+export const Port = NonNegativeInteger.pipe(S.filter(n => n <= PORT_MAX));
+export type Port = S.Schema.Type<typeof Port>;
+
+export const PortFromString = S.transform(
+  NonEmptyString,
+  Port,
+  {
+    strict: true,
+    decode: s => parseInt(s),
+    encode: n => n.toString()
+  }
+)
