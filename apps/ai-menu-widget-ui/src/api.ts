@@ -17,7 +17,7 @@ export const getCompletion = async (request: SuggestionServiceRequest): Promise<
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(S.encode(SuggestionServiceRequest)(request))
+    body: JSON.stringify(S.encodeSync(SuggestionServiceRequest)(request))
   })
   .then(r => r.json())
   .then(S.decodeUnknownSync(SuggestionServiceResponse));
