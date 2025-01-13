@@ -11,19 +11,35 @@ import { Schema as S } from 'effect';
 import { pipe } from 'fp-ts/lib/function';
 import * as E from 'fp-ts/lib/Either';
 import { constNull } from 'fp-ts/lib/function';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import styled from '@emotion/styled';
 
+const useResizeObserver = () => useCallback((node: HTMLDivElement | null) => {
+  if (!node) return;
+  const resizeObserver = new ResizeObserver(() => {
+    sendHeightToParent();
+  });
+  resizeObserver.observe(node);
+  return () => resizeObserver.disconnect();
+}, []);
 
 export const Widget = () => {
   const [currentFormData, setCurrentFormData] = useState<SuggestionServiceRequest | null>(null);
-
+  const wrapperRef = useResizeObserver();
   return (
-    <div>
+    <div ref={wrapperRef}>
       <CompletionForm onSubmit={setCurrentFormData} />
       {currentFormData && <CompletionResult request={currentFormData} />}
     </div>
   )
 }
+
+const sendHeightToParent = () => {
+  window.parent.postMessage({
+    type: 'heightUpdate',
+    height: document.documentElement.scrollHeight
+  }, "*");
+};
 
 const CompletionResult = ({ request }: { request: SuggestionServiceRequest }) => {
   const { data, isLoading, error } = useCompletion(request);
@@ -53,6 +69,32 @@ const FieldInfo = ({ field }: { field: FieldApi<any, any, any, any> }) => {
     </>
   )
 }
+
+const MonadicalButton = styled.button`
+// code repetition 1F9AF2C9-1D18-4E49-83CC-FBE5338318E3 with monadical.com
+&.btn-info-inverse {
+    font-size: 16px;
+    color: #FFF;
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px solid #0086b4;
+    border-radius: 40px;
+    box-shadow: 0 7px 20px -12px rgba(144, 144, 144, 0.8);
+    background-color: #0086b4;
+    transition: all 0.3s ease 0s;
+    white-space: normal;
+}
+
+// code repetition 1F9AF2C9-1D18-4E49-83CC-FBE5338318E3 with monadical.com
+&.btn-info-inverse:hover {
+    color: #0086b4;
+    background: #FFF;
+    border: 2px solid #0086b4;
+}
+  &.btn {
+    cursor: pointer;
+  }
+`;
 
 const CompletionForm = ({onSubmit}: {onSubmit: (v: SuggestionServiceRequest) => void}) => {
   const form = useForm({
@@ -109,9 +151,9 @@ const CompletionForm = ({onSubmit}: {onSubmit: (v: SuggestionServiceRequest) => 
         <form.Subscribe
           selector={(state) => [state.canSubmit, state.isSubmitting]}
           children={([canSubmit, isSubmitting]) => (
-            <button type="submit" disabled={!canSubmit}>
+            <MonadicalButton type="submit" disabled={!canSubmit} className="btn btn-info-inverse">
               {isSubmitting ? '...' : 'Submit'}
-            </button>
+            </MonadicalButton>
           )}
         />
       </form>

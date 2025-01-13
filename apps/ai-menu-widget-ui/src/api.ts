@@ -28,3 +28,5 @@ export const useCompletion = (request: SuggestionServiceRequest) => useQuery({ q
     // TODO better hash
     hashCode(JSON.stringify(S.encode(SuggestionServiceRequest)(request)))
   ], queryFn: () => getCompletion(request) });
+
+
