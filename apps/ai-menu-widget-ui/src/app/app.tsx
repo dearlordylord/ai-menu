@@ -8,7 +8,13 @@ import {
 } from '@tanstack/react-query'
 import { Widget } from './widget';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const StyledApp = styled.div`
   // Your style here
