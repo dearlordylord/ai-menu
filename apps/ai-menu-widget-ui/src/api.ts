@@ -1,5 +1,4 @@
 import {
-  CompanyDomain,
   COMPLETION_ENDPOINT,
   SuggestionServiceRequest,
   SuggestionServiceResponse
