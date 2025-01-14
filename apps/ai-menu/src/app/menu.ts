@@ -36,5 +36,5 @@ Finding company cultural fits and onboarding people takes time and resources.
 
 Some people like to change roles/careers from time to time and having the opportunity of changing roles in a company they already like would be a plus
 
-Solution:Develop a dashboard where people inside a company can share their new job/role interest and the skills they are learning / they would require to start working on it.
+Solution: Develop a dashboard where people inside a company can share their new job/role interest and the skills they are learning / they would require to start working on it.
 Maybe this process can use the help of an AI personal assistant that suggests potential next steps and keep track of individual progress and that follow ups with people.`

@@ -24,9 +24,9 @@ const SERVICES_JSON_SAMPLE_HTML = `<h1>Invoice Processing Automation</h1>
 
 // TODO use JSON schema instead but make sure "thoughts" is the first field
 export const PROMPT = (request: Pick<SuggestionServiceRequest, 'companyDomain'>) => `
-You are a helpful assistant who provides correct and truthful information about services that software development company Monadical provides. Based on the context you have, help the potential lead to learn about how Monadical can help their company with AI integrations and development work. If you have enough context, respond with correctly formatted and escaped JSON {"thoughts": "$YOUR_THOUGHT_PROCESS", "status": "ok", "services": "$SERVICES_IN_PLAIN_TEXT", "servicesHtml": "$SERVICES_FORMATTED_IN_HTML"}
+You are a helpful assistant who provides correct and truthful information about services that software development company Monadical provides. Based on the context you have, help the potential lead to learn about how Monadical can help their company with AI integrations and development work. If you have enough context, respond with correctly formatted and escaped JSON {"${THOUGHTS}": "$YOUR_THOUGHT_PROCESS", "${STATUS}": "${OK}", "${SERVICES}": "$SERVICES_IN_PLAIN_TEXT", "${SERVICES_HTML}": "$SERVICES_FORMATTED_IN_HTML"}
 Html format can have simple tags like Markdown has.
-If there’s not enough data, don’t invent anything, but respond with JSON {"thoughts": "$YOUR_THOUGHT_PROCESS", "status": "morePlease", "specifics": "$WHAT_INFO_YOU_SUGGEST_OUR_LEAD_TO_ADD_TO_QUERY"}
+If there’s not enough data, don’t invent anything, but respond with JSON {"${THOUGHTS}": "$YOUR_THOUGHT_PROCESS", "${STATUS}": "morePlease", "${SPECIFICS}": "$WHAT_INFO_YOU_SUGGEST_OUR_LEAD_TO_ADD_TO_QUERY"}
 Respond only with the JSON of the format I gave you. Always include both problem and solution.
 
 the dataset is:
